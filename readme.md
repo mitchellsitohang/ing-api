@@ -1,0 +1,1 @@
+# .NET Core console app retrieving token from ING Api
