@@ -57,7 +57,6 @@ namespace ing_api
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, myURL);
             request.Content = content;
-            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Digest", digest);
