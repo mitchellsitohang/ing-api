@@ -22,11 +22,12 @@ namespace ing_api
             var certFolder = @"D:\ing\certs\";
             var signingCert = @"example_client_signing.pfx"; // signs the request 
             var tlsCert = @"example_client_tls.pfx"; // encrypts (and signs) the connection between http and tcp/ip
+            var requestMethod = HttpMethod.Post;
 
             DateTime requestDate = DateTime.UtcNow;
-            string requestDateText = requestDate.ToString("R");//"Thu, 30 Jan 2020 13:56:13 GMT";
+            string requestDateText = requestDate.ToString("R"); // date should looks like this "Thu, 30 Jan 2020 13:56:13 GMT";
             string digest = "SHA-256=w0mymuL8aCrbJmmabs1pytZhon8lQucTuJMUtuKr+uw=";
-            string signingString = $"(request-target): {"post"} {reqPath}\ndate: {requestDateText}\ndigest: {digest}";
+            string signingString = $"(request-target): {requestMethod.ToString().ToLower()} {reqPath}\ndate: {requestDateText}\ndigest: {digest}";
 
             string signature = null;
 
@@ -55,7 +56,7 @@ namespace ing_api
             payload.Add("grant_type", "client_credentials");
             var content = new FormUrlEncodedContent(payload);
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, myURL);
+            HttpRequestMessage request = new HttpRequestMessage(requestMethod, myURL);
             request.Content = content;
 
             request.Headers.Add("Accept", "application/json");
